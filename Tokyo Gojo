@@ -1,0 +1,1928 @@
+-- Create the UI elements
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a frame to hold all UI elements
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
+mainFrame.Position = UDim2.new(0.25, 0, 0.25, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mainFrame.Parent = screenGui
+
+-- Create a title for the board
+local boardTitle = Instance.new("TextLabel")
+boardTitle.Size = UDim2.new(1, 0, 0.1, 0)
+boardTitle.Position = UDim2.new(0, 0, 0, 0)
+boardTitle.Text = "Tokyo Gojo" -- Change this to your board's title
+boardTitle.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+boardTitle.TextColor3 = Color3.fromRGB(0, 0, 0)
+boardTitle.TextScaled = true
+boardTitle.Parent = mainFrame
+
+-- Create a frame for names of people (replacing ScrollingFrame)
+local peopleList = Instance.new("Frame")
+peopleList.Size = UDim2.new(1, 0, 0.7, 0)
+peopleList.Position = UDim2.new(0, 0, 0.1, 0) -- Positioned below the boardTitle
+peopleList.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+peopleList.Parent = mainFrame
+
+-- Create a button to start
+local startButton = Instance.new("TextButton")
+startButton.Size = UDim2.new(1, 0, 0.3, 0)
+startButton.Position = UDim2.new(0, 0, 0.8, 0) -- Positioned below the peopleList
+startButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+startButton.Text = "Start"
+startButton.Parent = mainFrame
+
+-- Define a table to store names
+local names = {"Owner: Tokyozxc", "SFX: Tokyozxc", "VFX: The Strongest, Imanstrongest", "Helper: Qaiddanial"}
+
+-- Function to add people to the list
+local function addPerson(name, index)
+    local personEntry = Instance.new("TextLabel")
+    personEntry.Size = UDim2.new(1, 0, 0.250, 0)
+    personEntry.Position = UDim2.new(0, 0, (index - 1) * 0.2, 0) -- Adjust position for each entry
+    personEntry.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+    personEntry.TextColor3 = Color3.fromRGB(0, 0, 0)
+    personEntry.Text = name
+    personEntry.Parent = peopleList
+end
+
+-- Clear existing entries before adding new ones
+peopleList:ClearAllChildren()
+
+-- Populate the list with names from the table
+for index, name in ipairs(names) do
+    addPerson(name, index)
+end
+
+-- Button click event (No longer used for name input)
+startButton.MouseButton1Click:Connect(function()
+    -- Just hide the main frame when the button is clicked
+    mainFrame.Visible = false
+end)
+
+--Move & Ultimate Names
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("1").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "Blue"
+
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("2").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "Beatdown"
+
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("3").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "Slap"
+
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("4").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "Repulse"
+
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Ultimate names and their probabilities
+local ultimateNames = {
+    {name = "SIX EYES", chance = 0.7},                 -- High chance (70%)
+    {name = "THE HONORED AURA", chance = 0.1},              -- Low chance (10%)
+    {name = "NAH I'D WIN", chance = 0.15},             -- Medium rare chance (15%)
+    {name = "LETS GET A LITTLE FREAKY", chance = 0.05} -- Super rare chance (5%)
+}
+
+-- Function to get a name based on the defined probabilities
+local function getRandomUltimateName()
+    local randomValue = math.random()
+    local accumulatedChance = 0
+
+    for _, ultimate in ipairs(ultimateNames) do
+        accumulatedChance = accumulatedChance + ultimate.chance
+        if randomValue <= accumulatedChance then
+            return ultimate.name
+        end
+    end
+end
+
+local function findGuiAndSetText()
+    local screenGui = playerGui:FindFirstChild("ScreenGui")
+    
+    if screenGui then
+        local magicHealthFrame = screenGui:FindFirstChild("MagicHealth")
+        
+        if magicHealthFrame then
+            local textLabel = magicHealthFrame:FindFirstChild("TextLabel")
+            
+            if textLabel then
+                -- Get the ultimate name based on weighted probabilities
+                local newUltimateName = getRandomUltimateName()
+                textLabel.Text = newUltimateName
+            end
+        end
+    end
+end
+
+-- Run the function once when the script is executed
+findGuiAndSetText()
+
+--[[Animations]]
+
+--[[MOVE 1 ANIM]]
+
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Debris = game:GetService("Debris")
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local animationId = 10468665991
+local camera = game.Workspace.CurrentCamera
+
+-- Zoom settings
+local slowZoomSpeed = 1
+local fastZoomSpeed = 0.2
+local zoomInFOV = 0
+local defaultFOV = 70
+
+-- Function to zoom in
+local function zoomIn()
+    local zoomInTween = TweenService:Create(
+        camera,
+        TweenInfo.new(slowZoomSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.In),
+        {FieldOfView = zoomInFOV}
+    )
+    zoomInTween:Play()
+end
+
+-- Function to zoom out
+local function zoomOut()
+    local zoomOutTween = TweenService:Create(
+        camera,
+        TweenInfo.new(fastZoomSpeed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out),
+        {FieldOfView = defaultFOV}
+    )
+    zoomOutTween:Play()
+end
+
+-- Animation logic
+local function onAnimationPlayed(animationTrack)
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        -- Stop all playing animations
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        -- Play new animation
+        local newAnim = Instance.new("Animation")
+        newAnim.AnimationId = "rbxassetid://18903642853"
+        local loadedAnim = humanoid:LoadAnimation(newAnim)
+
+        local startTime = 3.4
+        loadedAnim:Play()
+        loadedAnim:AdjustSpeed(0)
+        loadedAnim.TimePosition = startTime
+        loadedAnim:AdjustSpeed(0.7)
+
+        -- Start zoom in when animation starts
+        zoomIn()
+
+        -- Delay for stopping the animation and zooming out
+        delay(9.4, function()
+            loadedAnim:Stop()
+        end)
+
+        delay(0.6, function()
+            zoomOut()
+        end)
+
+        -- Add sound effects
+        local sound1 = Instance.new("Sound")
+        sound1.SoundId = "rbxassetid://17276400274"
+        sound1.Volume = 2
+        sound1.Looped = false
+        sound1.PlaybackSpeed = 2.4
+        sound1.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+        sound1:Play()
+
+        sound1.Ended:Connect(function()
+            sound1:Destroy()
+        end)
+
+        wait(0.6)
+        local sound2 = Instance.new("Sound")
+        sound2.SoundId = "rbxassetid://13087785791"
+        sound2.Volume = 2
+        sound2.Looped = false
+        sound2.PlaybackSpeed = 1
+        sound2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+        sound2:Play()
+
+        sound2.Ended:Connect(function()
+            sound2:Destroy()
+        end)
+
+        -- Particle effects
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local head = character:FindFirstChild("Torso")
+        local torso = character:FindFirstChild("Head")
+
+        if head and torso then
+            local final1 = ReplicatedStorage.Resources.Sorcerer["WallFX"].Final.At:Clone()
+            final1.Parent = head
+            for _, child in ipairs(final1:GetChildren()) do
+                if child:IsA("ParticleEmitter") then
+                    child:Emit(15)
+                end
+            end
+
+            local final4 = ReplicatedStorage.Resources.Sorcerer["WallFX"].Final.Attachment:Clone()
+            final4.Parent = torso
+            for _, child in ipairs(final4:GetChildren()) do
+                if child:IsA("ParticleEmitter") then
+                    child:Emit(1)
+                end
+            end
+        end
+    end
+end
+
+-- Connect the function to humanoid's animation played event
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+--[[END OF MOVE 1 ANIM]]
+
+--[[Move 2]]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+local animationId = 10466974800
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local function onAnimationPlayed(animationTrack)
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+        local p = game.Players.LocalPlayer
+        local Humanoid = p.Character:WaitForChild("Humanoid")
+
+        for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        local AnimAnim = Instance.new("Animation")
+        AnimAnim.AnimationId = "rbxassetid://12273188754"
+        local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+        local startTime = 0
+        Anim:Play()
+        Anim:AdjustSpeed(1.3)
+        Anim.TimePosition = startTime
+        Anim:AdjustSpeed(1.2)
+
+        delay(10, function()
+            Anim:Stop()
+        end)
+
+        -- LocalScript inside StarterGui or StarterPlayerScripts
+
+        -- Create a new sound object
+        local sound = Instance.new("Sound")
+
+        -- Set the Sound ID (example Sound ID from Roblox library)
+        sound.SoundId = "rbxassetid://16945593216"  -- Replace with your Sound ID
+
+        -- Set other properties for the sound
+        sound.Volume = 2
+        sound.Looped = false  -- Set to true if you want the sound to loop
+        sound.PlayOnRemove = false
+
+        -- Set the playback speed (change speed here)
+        local playbackSpeed = 0.8  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+        sound.PlaybackSpeed = playbackSpeed
+
+        -- Set the start time for the sound (in seconds)
+        local soundStartTime = 2  -- Change this to the desired start time
+        sound.TimePosition = soundStartTime
+
+        -- Parent the sound to the player's PlayerGui so it plays locally
+        sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+        -- Play the sound
+        sound:Play()
+
+        -- Optionally, destroy the sound after it finishes playing
+        sound.Ended:Connect(function()
+            sound:Destroy()
+        end)
+    end
+end
+
+--[[END OF MOVE 2 ANIM]]
+
+--[[Move 3]]
+
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local animationId = 10471336737
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://18440389930"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 1
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(1)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(1.2)
+
+
+delay(1.5, function()
+
+    Anim:Stop()
+
+end)
+
+-- LocalScript inside StarterGui or StarterPlayerScripts
+
+-- Create a new sound object
+local sound = Instance.new("Sound")
+
+-- Set the Sound ID (example Sound ID from Roblox library)
+sound.SoundId = "rbxassetid://7058337852"  -- Replace with your Sound ID
+
+-- Set other properties for the sound
+sound.Volume = 1
+sound.Looped = false  -- Set to true if you want the sound to loop
+sound.PlayOnRemove = false
+
+-- Set the playback speed (change speed here)
+local playbackSpeed = 0.9  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+sound.PlaybackSpeed = playbackSpeed
+
+-- Parent the sound to the player's PlayerGui so it plays locally
+sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Play the sound
+sound:Play()
+
+-- Optionally, destroy the sound after it finishes playing
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+-- LocalScript inside StarterGui or StarterPlayerScripts
+
+-- Create a new sound object
+local sound = Instance.new("Sound")
+
+-- Set the Sound ID (example Sound ID from Roblox library)
+sound.SoundId = "rbxassetid://16945495411"  -- Replace with your Sound ID
+
+-- Set other properties for the sound
+sound.Volume = 1.5
+sound.Looped = false  -- Set to true if you want the sound to loop
+sound.PlayOnRemove = false
+
+-- Set the playback speed (change speed here)
+local playbackSpeed = 1.2  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+sound.PlaybackSpeed = playbackSpeed
+
+-- Parent the sound to the player's PlayerGui so it plays locally
+sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Play the sound
+sound:Play()
+
+-- Optionally, destroy the sound after it finishes playing
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+     wait(0.5)
+
+        -- Clone and emit particles on the head
+        local final1 = game.ReplicatedStorage.Resources.KJEffects["KJWallCombo"].FinalImpact.Attachment:Clone()
+        final1.Parent = player.Character.Head
+        for _, child in ipairs(final1:GetChildren()) do
+            if child:IsA("ParticleEmitter") then
+                child:Emit(1) -- Emit 7 particles
+            end
+        end
+
+        -- Clone and emit particles on the torso
+        local final4 = game.ReplicatedStorage.Resources.KJEffects["KJWallCombo"].FinalImpact.Attachment:Clone()
+        final4.Parent = player.Character.Head
+        for _, child in ipairs(final4:GetChildren()) do
+            if child:IsA("ParticleEmitter") then
+                child:Emit(1) -- Emit 3 particles
+            end
+        end
+
+local hit1 = game.ReplicatedStorage.Resources.KJEffects["lastkick"].Attachment:Clone()
+hit1.Parent = game.Players.LocalPlayer.Character["HumanoidRootPart"]
+    for _, child in ipairs(hit1:GetChildren()) do
+        if child:IsA("ParticleEmitter") then -- Check if the child is a ParticleEmitter
+            child:Emit(1) -- Emit 20 particles
+        end
+    end
+local hit1 = game.ReplicatedStorage.Resources.KJEffects["lastkick"].Attachment:Clone()
+hit1.Parent = game.Players.LocalPlayer.Character["HumanoidRootPart"]
+    for _, child in ipairs(hit1:GetChildren()) do
+        if child:IsA("ParticleEmitter") then -- Check if the child is a ParticleEmitter
+            child:Emit(0) -- Emit 20 particles
+        end
+    end
+
+local hit1 = game.ReplicatedStorage.Resources.KJEffects["lastkick"].Attachment:Clone()
+hit1.Parent = game.Players.LocalPlayer.Character["HumanoidRootPart"]
+    for _, child in ipairs(hit1:GetChildren()) do
+        if child:IsA("ParticleEmitter") then -- Check if the child is a ParticleEmitter
+            child:Emit(1) -- Emit 20 particles
+        end
+    end
+local hit1 = game.ReplicatedStorage.Resources.KJEffects["HitParticles"].Hit:Clone()
+    hit1.Parent = game.Players.LocalPlayer.Character["Right Arm"]
+        for _, child in ipairs(hit1:GetChildren()) do
+            if child:IsA("ParticleEmitter") then -- Check if the child is a ParticleEmitter
+                child:Emit(1) -- Emit 20 particles
+            end
+        end
+local hit1 = game.ReplicatedStorage.Resources.KJEffects["HitParticles"].Hit:Clone()
+    hit1.Parent = game.Players.LocalPlayer.Character["Right Arm"]
+        for _, child in ipairs(hit1:GetChildren()) do
+            if child:IsA("ParticleEmitter") then -- Check if the child is a ParticleEmitter
+                child:Emit(1) -- Emit 20 particles
+            end
+        end
+
+    end
+end
+
+-- Connect the function to humanoid's animation played event
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+--[[END OF MOVE 3 ANIM]]
+
+--[[Move 4]]
+
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local animationId = 12510170988
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://15944354277"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 1
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(1)
+
+delay(1.6, function()
+
+    Anim:Stop()
+
+end)
+
+-- LocalScript inside StarterGui or StarterPlayerScripts
+
+-- Create a new sound object
+local sound = Instance.new("Sound")
+
+-- Set the Sound ID (example Sound ID from Roblox library)
+sound.SoundId = "rbxassetid://16139752852"  -- Replace with your Sound ID
+
+-- Set other properties for the sound
+sound.Volume = 3.5
+sound.Looped = false  -- Set to true if you want the sound to loop
+sound.PlayOnRemove = false
+
+-- Set the playback speed (change speed here)
+local playbackSpeed = 1.4  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+sound.PlaybackSpeed = playbackSpeed
+
+-- Parent the sound to the player's PlayerGui so it plays locally
+sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Play the sound
+sound:Play()
+
+-- Optionally, destroy the sound after it finishes playing
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+-- LocalScript inside StarterGui or StarterPlayerScripts
+
+-- Create a new sound object
+local sound = Instance.new("Sound")
+
+-- Set the Sound ID (example Sound ID from Roblox library)
+sound.SoundId = "rbxassetid://12376570241"  -- Replace with your Sound ID
+
+-- Set other properties for the sound
+sound.Volume = 2.7
+sound.Looped = false  -- Set to true if you want the sound to loop
+sound.PlayOnRemove = false
+
+-- Set the playback speed (change speed here)
+local playbackSpeed = 1.4  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+sound.PlaybackSpeed = playbackSpeed
+
+-- Parent the sound to the player's PlayerGui so it plays locally
+sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+wait(0.6)
+
+-- Play the sound
+sound:Play()
+
+-- Optionally, destroy the sound after it finishes playing
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+    end
+
+end
+
+--[[END OF MOVE 4 ANIM]]
+
+--[[Wall combo]]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+local animationId = 15955393872
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://15943915877"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 0.05
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(1)
+
+
+    end
+
+end
+
+--[[END OF WALL COMBO ANIM]]
+
+--[[Ult Move 1]]
+
+local animationId = 11343318134
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://13071982935"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 0
+
+
+Anim:Play(0)
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(0.3)
+
+delay(20, function()
+
+    Anim:Stop()
+
+end)
+
+    end
+
+end
+
+--[[END OF ULT MOVE 1 ANIM]]
+
+--[[Ult Move 2 with Hollow Purple Integration]]
+
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Debris = game:GetService("Debris")
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:WaitForChild("Humanoid")
+local isOnCooldown = false  -- Cooldown flag
+local animationId = 11365563255
+
+-- Function to create manga-style speech bubbles
+local function createMangaBubble(text, adornee, offset, size, displayTime)
+    local bubble = Instance.new("BillboardGui")
+    bubble.Size = UDim2.new(0, size.X, 0, size.Y)
+    bubble.StudsOffset = offset
+    bubble.Adornee = adornee
+    bubble.AlwaysOnTop = false  -- No zoom following
+    bubble.MaxDistance = 50
+    bubble.Parent = character
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.Text = text
+    label.TextScaled = true
+    label.BackgroundTransparency = 0.5
+    label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- White background for manga-style
+    label.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Black text
+    label.Font = Enum.Font.Cartoon
+    label.Parent = bubble
+
+    -- Destroy the bubble after displayTime seconds
+    delay(displayTime, function()
+        bubble:Destroy()
+    end)
+end
+
+-- Function to display the sequence of manga bubbles
+local function showMangaBubbles()
+    -- First two bubbles
+    createMangaBubble("Phase Twilight, Eyes Of Wisdom", character:FindFirstChild("LeftUpperArm"), Vector3.new(-5, 0.5, 0), Vector2.new(100, 170), 2)
+    createMangaBubble("Nine ropes, Polarized light", character:FindFirstChild("RightUpperArm"), Vector3.new(5, 0.5, 0), Vector2.new(100, 170), 2)
+    
+    -- Wait 2 seconds, then show the next two bubbles
+    wait(3)
+    
+    createMangaBubble("Crow and Declaration", character:FindFirstChild("LeftUpperArm"), Vector3.new(-5, 0.5, 0), Vector2.new(100, 150), 2)
+    createMangaBubble("Between front and back", character:FindFirstChild("RightUpperArm"), Vector3.new(5, 0.5, 0), Vector2.new(100, 150), 2)
+    
+    -- Wait 2 seconds, then show the final two bubbles
+    wait(3)
+    
+    createMangaBubble("Hollow-", character:FindFirstChild("LeftHand"), Vector3.new(-5, 5, 0), Vector2.new(100, 150), 2)
+    createMangaBubble("Purple!", character:FindFirstChild("RightHand"), Vector3.new(5, 2, 0), Vector2.new(100, 150), 2)
+
+    -- Wait 2 seconds, then show the final screen-covering bubble
+    wait(0)
+end
+
+-- Function to create the Hollow Purple sphere
+local function createHollowPurple()
+    local hollowPurple = Instance.new("Part")
+    hollowPurple.Shape = Enum.PartType.Ball
+    hollowPurple.Size = Vector3.new(20, 20, 20)
+    hollowPurple.Position = humanoidRootPart.Position
+    hollowPurple.Anchored = true
+    hollowPurple.CanCollide = false
+    hollowPurple.BrickColor = BrickColor.new("Royal purple")
+    hollowPurple.Transparency = 0.2
+    hollowPurple.Material = Enum.Material.Neon
+    hollowPurple.Parent = workspace
+
+    -- Tween to make the sphere grow larger
+    local growTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+    local goal = {Size = Vector3.new(30, 30, 30)}  -- Hollow Purple expands in size
+    local growTween = TweenService:Create(hollowPurple, growTweenInfo, goal)
+    growTween:Play()
+
+    growTween.Completed:Connect(function()
+        -- Continuous forward movement of the sphere
+        local runConnection
+        runConnection = game:GetService("RunService").Heartbeat:Connect(function()
+            hollowPurple.Position = hollowPurple.Position + humanoidRootPart.CFrame.LookVector * 13  -- Move forward
+        end)
+
+        -- Explode after 8 seconds (duration of the ability)
+        wait(0)
+        explode(hollowPurple.Position, 250, 300)  -- Massive radius and damage
+        hollowPurple:Destroy()
+
+        -- Disconnect the Heartbeat connection to stop movement
+        runConnection:Disconnect()
+
+        -- Cleanup after purple ability
+        cleanupAfterPurple()
+
+        -- Auto-die logic: kill the player
+        if humanoid then
+            humanoid:TakeDamage(humanoid.MaxHealth)  -- Kill the character
+        end
+
+        -- Start cooldown timer of 20 seconds
+        wait(20)
+        isOnCooldown = false  -- Reset cooldown flag after 20 seconds
+    end)
+end
+
+-- Function to activate Hollow Purple
+local function activateHollowPurple()
+    if isOnCooldown then return end  -- Check if the ability is on cooldown
+    isOnCooldown = true  -- Set cooldown flag to true
+
+    -- Show manga bubbles when Hollow Purple activates
+    showMangaBubbles()
+
+    -- Create the Hollow Purple sphere effect
+    createHollowPurple()
+end
+
+-- Function to handle when the animation is played
+local function onAnimationPlayed(animationTrack)
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        -- Stop all other animations before starting ult
+        local p = game.Players.LocalPlayer
+        local humanoid = p.Character:WaitForChild("Humanoid")
+
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        -- Play the ult animation with adjusted speed
+        local anim = Instance.new("Animation")
+        anim.AnimationId = "rbxassetid://13071982935"
+        local ultAnim = humanoid:LoadAnimation(anim)
+        ultAnim:Play()
+
+        -- Adjust the animation speed
+        ultAnim:AdjustSpeed(0.8)  -- Set initial speed
+
+        -- Play the sound
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://sound_id_here"  -- Replace with the actual sound
+        sound.Volume = 1
+        sound.PlaybackSpeed = 1
+        sound.Parent = player:WaitForChild("PlayerGui")
+        sound:Play()
+
+        sound.Ended:Connect(function()
+            sound:Destroy()
+        end)
+
+        -- Activate Hollow Purple after the ult animation starts
+        activateHollowPurple()
+
+        -- Adjust the animation speed as needed during playback
+        delay(5, function()
+            if ultAnim.IsPlaying then
+                ultAnim:AdjustSpeed(0.5)  -- Slow down the animation after 5 seconds
+            end
+        end)
+    end
+end
+
+-- Connect the animation trigger to play ult move and Hollow Purple
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+--[[END OF ULT MOVE 2 ANIM with Hollow Purple]]
+
+--[[Ult Move 3]]
+
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local animationId = 12983333733
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://16719107050"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 0
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(1)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(0.6)
+
+
+delay(20, function()
+
+    Anim:Stop()
+
+end)
+
+
+    end
+
+end
+
+--[[END OF ULT MOVE 3 ANIM]]
+
+--[[Ult Move 4]]
+
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Debris = game:GetService("Debris")
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local animationId = 13927612951
+
+-- Function to create manga-style speech bubbles
+local function createMangaBubble(text, adornee, offset, size, displayTime)
+    local bubble = Instance.new("BillboardGui")
+    bubble.Size = UDim2.new(0, size.X, 0, size.Y)
+    bubble.StudsOffset = offset
+    bubble.Adornee = adornee
+    bubble.AlwaysOnTop = true
+    bubble.MaxDistance = 50
+    bubble.Parent = character
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.Text = text
+    label.TextScaled = true
+    label.BackgroundTransparency = 0.5
+    label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- White background for manga-style
+    label.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Black text
+    label.Font = Enum.Font.Cartoon
+    label.Parent = bubble
+
+    -- Destroy the bubble after displayTime seconds
+    delay(displayTime, function()
+        bubble:Destroy()
+    end)
+end
+
+-- Function to handle when the animation is played
+local function onAnimationPlayed(animationTrack)
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        -- Stop all other animations before starting ult
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        -- Play the ult animation with adjusted speed
+        local anim = Instance.new("Animation")
+        anim.AnimationId = "rbxassetid://18459183268"
+        local ultAnim = humanoid:LoadAnimation(anim)
+
+        ultAnim:Play()
+        ultAnim:AdjustSpeed(0)
+        ultAnim.TimePosition = 0
+        ultAnim:AdjustSpeed(1)
+
+        -- Create and play the sound
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://1177475221"  -- Replace with your Sound ID
+        sound.Volume = 1
+        sound.Looped = false
+        sound.PlayOnRemove = false
+        sound.PlaybackSpeed = 0.7
+        sound.Parent = player:WaitForChild("PlayerGui")
+        sound:Play()
+
+        -- Optionally, destroy the sound after it finishes playing
+        sound.Ended:Connect(function()
+            sound:Destroy()
+        end)
+
+        -- Create manga-style speech bubbles with a delay
+        createMangaBubble("Domain Expansion", character:FindFirstChild("LeftUpperArm"), Vector3.new(-5, 5, 0), Vector2.new(100, 150), 3)
+        
+        -- Wait for a certain amount of time before showing the second bubble
+        wait(1)  -- Adjust this delay as needed
+        
+        createMangaBubble("Infinity Void", character:FindFirstChild("RightUpperArm"), Vector3.new(5, 1, 0), Vector2.new(100, 150), 3)
+    end
+end
+
+-- Connect the animation trigger to play ult move
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+--[[END OF ULT MOVE 4 ANIM]]
+
+--[[Ult Activation]]
+
+local mainAnimationId = 12447707844
+local rareAnimationId = 18716464560  -- Replace with the ID of your rare animation
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Low chance probability for rare animation (e.g., 10%)
+local rareAnimationChance = 0.1
+
+local function onAnimationPlayed(animationTrack)
+    -- Check if the played animation is the ult activation animation
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. mainAnimationId then
+
+        -- Stop any currently playing animations
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        -- Randomly decide which animation to play
+        local playRareAnimation = math.random() <= rareAnimationChance
+
+        -- Load and play the selected animation
+        local AnimAnim = Instance.new("Animation")
+        if playRareAnimation then
+            AnimAnim.AnimationId = "rbxassetid://" .. rareAnimationId  -- Play rare animation
+        else
+            AnimAnim.AnimationId = "rbxassetid://18435303746"  -- Play the default ult animation
+        end
+        local Anim = humanoid:LoadAnimation(AnimAnim)
+        
+        -- Configure animation playback
+        local startTime = 0
+        Anim:Play()
+        Anim:AdjustSpeed(0)
+        Anim.TimePosition = startTime
+        Anim:AdjustSpeed(1)
+        
+        -- Stop animation after 10 seconds
+        delay(10, function()
+            Anim:Stop()
+        end)
+
+        -- Play sound (same for both animations)
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxasset://custom_gloop/customObject_Sound_Sound.mp3"  -- Replace with your Sound ID
+        sound.Volume = 1
+        sound.Looped = false
+        sound.PlaybackSpeed = 1  -- Adjust playback speed (1 = normal)
+        sound.Parent = player:WaitForChild("PlayerGui")
+        sound:Play()
+        
+        -- Destroy sound after playback
+        sound.Ended:Connect(function()
+            sound:Destroy()
+        end)
+
+        -- Create speech bubbles (for both animations)
+        -- Manga-style speech bubble for left arm (LeftUpperArm)
+        local leftBillboard = Instance.new("BillboardGui")
+        leftBillboard.Size = UDim2.new(0, 100, 0, 120)  -- Taller for a speech bubble
+        leftBillboard.StudsOffset = Vector3.new(-6, 4, 0)  -- Position near the left arm
+        leftBillboard.Adornee = character:FindFirstChild("LeftUpperArm")
+        leftBillboard.AlwaysOnTop = false  -- Prevent the bubble from scaling with zoom
+        leftBillboard.MaxDistance = 50  -- Set max distance for visibility
+        leftBillboard.Parent = character
+
+        local leftLabel = Instance.new("TextLabel")
+        leftLabel.Size = UDim2.new(1, 0, 1, 0)
+        leftLabel.Text = "Your challenger here."
+        leftLabel.TextScaled = true 
+        leftLabel.BackgroundTransparency = 0.5  -- Semi-transparent for a bubble effect
+        leftLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- White background like manga
+        leftLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Black text for contrast
+        leftLabel.Font = Enum.Font.Cartoon  -- Optional, use a manga-style font
+        leftLabel.Parent = leftBillboard
+
+        -- Manga-style speech bubble for right arm (RightUpperArm)
+        local rightBillboard = Instance.new("BillboardGui")
+        rightBillboard.Size = UDim2.new(0, 100, 0, 120)  -- Taller for a speech bubble
+        rightBillboard.StudsOffset = Vector3.new(6, 0.5, 0)  -- Position near the right arm
+        rightBillboard.Adornee = character:FindFirstChild("RightUpperArm")
+        rightBillboard.AlwaysOnTop = false  -- Prevent the bubble from scaling with zoom
+        rightBillboard.MaxDistance = 50  -- Set max distance for visibility
+        rightBillboard.Parent = character
+
+        local rightLabel = Instance.new("TextLabel")
+        rightLabel.Size = UDim2.new(1, 0, 1, 0)
+        rightLabel.Text = "*The Strongest Sorcerer Of Today*"
+        rightLabel.TextScaled = true
+        rightLabel.BackgroundTransparency = 0.5  -- Semi-transparent for a bubble effect
+        rightLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- White background like manga
+        rightLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Black text for contrast
+        rightLabel.Font = Enum.Font.Cartoon  -- Optional, use a manga-style font
+        rightLabel.Parent = rightBillboard
+
+        -- Remove text bubbles after 4 seconds
+        delay(4, function()
+            leftBillboard:Destroy()
+            rightBillboard:Destroy()
+        end)
+
+-- Aqua color sequence (cyan and light blue)
+local aqua = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 255)), -- cyan
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(127, 255, 212)) -- light aqua
+}
+
+local fx1 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].ArmBurst.Attachment:Clone()
+fx1.Parent = game.Players.LocalPlayer.Character["Right Arm"]
+for _, child in ipairs(fx1:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(5) -- Emit 20 particles
+    end
+end
+
+local fx2 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].ArmBurst.a:Clone()
+fx2.Parent = game.Players.LocalPlayer.Character["Right Arm"]
+for _, child in ipairs(fx2:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(5) -- Emit 20 particles
+    end
+end
+
+local fx3 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].ArmFX:Clone()
+fx3.Parent = game.Players.LocalPlayer.Character["Right Arm"]
+for _, child in ipairs(fx3:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(5) -- Emit 1 particle
+    end
+end
+
+local fx4 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].EyeEmit:Clone()
+fx4.Parent = game.Players.LocalPlayer.Character["Head"]
+for _, child in ipairs(fx4:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(20) -- Emit 20 particles
+    end
+end
+
+local fx5 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].ArmBurst.Attachment:Clone()
+fx5.Parent = game.Players.LocalPlayer.Character["Left Arm"]
+for _, child in ipairs(fx5:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(5) -- Emit 20 particles
+    end
+end
+
+local fx6 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].ArmBurst.a:Clone()
+fx6.Parent = game.Players.LocalPlayer.Character["Left Arm"]
+for _, child in ipairs(fx6:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(5) -- Emit 20 particles
+    end
+end
+
+local fx7 = game.ReplicatedStorage.Resources.FiveSeasonsFX["CharFX"].ArmFX:Clone()
+fx7.Parent = game.Players.LocalPlayer.Character["Left Arm"]
+for _, child in ipairs(fx7:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        child.Color = aqua -- Change particle color to aqua
+        child:Emit(0) -- Emit 1 particle
+    end
+end
+
+wait(0)
+fx3:Destroy()
+
+wait(0)
+fx7:Destroy()
+
+    end
+end
+
+-- Connect the animation played event to the function
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+--[[END OF ULT ACTIVATION ANIM]]
+
+--[[Dash]]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local animationId = 10479335397
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://13294790250"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 0
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(1)
+
+
+delay(10, function()
+
+    Anim:Stop()
+
+end)
+
+-- LocalScript inside StarterGui or StarterPlayerScripts
+
+-- Create a new sound object
+local sound = Instance.new("Sound")
+
+-- Set the Sound ID (example Sound ID from Roblox library)
+sound.SoundId = "rbxassetid://14064850428"  -- Replace with your Sound ID
+
+-- Set other properties for the sound
+sound.Volume = 1
+sound.Looped = false  -- Set to true if you want the sound to loop
+sound.PlayOnRemove = false
+
+-- Set the playback speed (change speed here)
+local playbackSpeed = 0.8  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+sound.PlaybackSpeed = playbackSpeed
+
+-- Parent the sound to the player's PlayerGui so it plays locally
+sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Play the sound
+sound:Play()
+
+-- Optionally, destroy the sound after it finishes playing
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+    end
+
+end
+
+--[[END OF DASH ANIM]]
+
+--[BLOCK ANIM]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+local animationId = 10470389827
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://15020965094"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 0
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(1.6)
+
+
+    end
+
+end
+
+--[[END OF BLOCK ANIM]]
+
+--[[Uppercut]]
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local animationId = 10503381238
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://14900168720"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 1.3
+
+
+Anim:Play()
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(0.7)
+
+
+    end
+
+end
+
+--[[END OF UPPERCUT ANIM]]
+
+--[[Downslam]]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local animationId = 10470104242
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local function onAnimationPlayed(animationTrack)
+
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+
+local p = game.Players.LocalPlayer
+
+local Humanoid = p.Character:WaitForChild("Humanoid")
+
+
+for _, animTrack in pairs(Humanoid:GetPlayingAnimationTracks()) do
+
+    animTrack:Stop()
+
+end
+
+
+local AnimAnim = Instance.new("Animation")
+
+AnimAnim.AnimationId = "rbxassetid://17278415853"
+
+local Anim = Humanoid:LoadAnimation(AnimAnim)
+
+
+local startTime = 3.2
+
+
+wait(0)
+
+Anim:Play()
+
+Anim:AdjustSpeed(0)
+
+Anim.TimePosition = startTime
+
+Anim:AdjustSpeed(1)
+
+delay(0.8, function()
+
+    Anim:Stop()
+
+end)
+
+wait(0.2)
+
+-- LocalScript inside StarterGui or StarterPlayerScripts
+
+-- Create a new sound object
+local sound = Instance.new("Sound")
+
+-- Set the Sound ID (example Sound ID from Roblox library)
+sound.SoundId = "rbxassetid://12296507848"  -- Replace with your Sound ID
+
+-- Set other properties for the sound
+sound.Volume = 1
+sound.Looped = false  -- Set to true if you want the sound to loop
+sound.PlayOnRemove = false
+
+-- Set the playback speed (change speed here)
+local playbackSpeed = 1  -- Adjust playback speed (1 = normal, 1.5 = faster, 0.5 = slower)
+sound.PlaybackSpeed = playbackSpeed
+
+-- Parent the sound to the player's PlayerGui so it plays locally
+sound.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Play the sound
+sound:Play()
+
+-- Optionally, destroy the sound after it finishes playing
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+    end
+
+end
+
+--[[END OF DOWNSLAM ANIM]]
+
+--[[Punch anims]]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local animationIdsToStop = {
+
+    [17859015788] = true, --punch idk
+
+    [15259161390] = true, --punch1
+
+    [15240216931] = true, --punch2
+
+    [15240176873] = true, --punch3
+
+    [15162694192] = true, --punch4
+
+}
+
+
+local replacementAnimations = {
+
+    ["15259161390"] = "rbxassetid://16515503507", --punch1
+
+    ["15240216931"] = "rbxassetid://13532600125", --punch2
+
+    ["15240176873"] = "rbxassetid://13295919399", --punch3
+
+    ["15162694192"] = "rbxassetid://13295936866", --punch4
+
+    ["17859015788"] = "rbxassetid://12684185971", --punch idk
+
+    ["11365563255"] = "rbxassetid://14516273501" --punch idk
+
+}
+
+
+local queue = {}
+
+local isAnimating = false
+
+
+local function playReplacementAnimation(animationId)
+
+    if isAnimating then
+
+        table.insert(queue, animationId)
+
+        return
+
+    end
+
+   
+
+    isAnimating = true
+
+    local replacementAnimationId = replacementAnimations[tostring(animationId)]
+
+    if replacementAnimationId then
+
+        local AnimAnim = Instance.new("Animation")
+
+        AnimAnim.AnimationId = replacementAnimationId
+
+        local Anim = humanoid:LoadAnimation(AnimAnim)
+
+        Anim:Play()
+
+       
+
+        Anim.Stopped:Connect(function()
+
+            isAnimating = false
+
+            if #queue > 0 then
+
+                local nextAnimationId = table.remove(queue, 1)
+
+                playReplacementAnimation(nextAnimationId)
+
+            end
+
+        end)
+
+    else
+
+        isAnimating = false
+
+    end
+
+end
+
+
+local function stopSpecificAnimations()
+
+    for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
+
+        local animationId = tonumber(track.Animation.AnimationId:match("%d+"))
+
+        if animationIdsToStop[animationId] then
+
+            track:Stop()
+
+        end
+
+    end
+
+end
+
+
+local function onAnimationPlayed(animationTrack)
+
+    local animationId = tonumber(animationTrack.Animation.AnimationId:match("%d+"))
+
+    if animationIdsToStop[animationId] then
+
+        stopSpecificAnimations()
+
+        animationTrack:Stop()
+
+       
+
+        local replacementAnimationId = replacementAnimations[tostring(animationId)]
+
+        if replacementAnimationId then
+
+            playReplacementAnimation(animationId)
+
+        end
+
+    end
+
+end
+
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+
+local function onBodyVelocityAdded(bodyVelocity)
+
+    if bodyVelocity:IsA("BodyVelocity") then
+
+        bodyVelocity.Velocity = Vector3.new(bodyVelocity.Velocity.X, 0, bodyVelocity.Velocity.Z)
+
+    end
+
+end
+
+
+character.DescendantAdded:Connect(onBodyVelocityAdded)
+
+
+for _, descendant in pairs(character:GetDescendants()) do
+
+    onBodyVelocityAdded(descendant)
+
+end
+
+
+player.CharacterAdded:Connect(function(newCharacter)
+
+    character = newCharacter
+
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    character.DescendantAdded:Connect(onBodyVelocityAdded)
+
+   
+
+    for _, descendant in pairs(character:GetDescendants()) do
+
+        onBodyVelocityAdded(descendant)
+
+    end
+
+end)
+
+local mouse = game.Players.LocalPlayer:GetMouse()
+local tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Flash Step"
+
+-- Create animation
+local animation = Instance.new("Animation")
+animation.AnimationId = "rbxassetid://15957361339" -- Replace with your animation ID
+
+-- Create sound
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://13498776114" -- Replace with your sound ID
+sound.Volume = 1 -- Adjust volume as needed
+sound.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart -- Set the sound parent
+
+-- Set desired animation speed
+local animationSpeed = 1.7 -- Change this to your desired animation speed
+
+-- Cooldown settings
+local realCooldown = 0.5 -- Actual cooldown duration (in seconds)
+local displayCooldown = 5 -- Countdown text duration
+local canUseTool = true -- Check if tool is ready to use
+
+-- Customize countdown display options
+local countdownOptions = {
+    textColor = Color3.new(1, 0, 0), -- Default red color
+    font = Enum.Font.SourceSansBold, -- Default font
+    textSize = 30, -- Default text size
+    guiSize = UDim2.new(0, 100, 0, 50), -- Default GUI size
+    studsOffset = Vector3.new(0, 3, 0), -- Default position above the head
+    countdownFormat = "Flash Step cooldown: %d seconds left" -- Custom countdown format
+}
+
+-- Function to display cooldown text above the player's head
+local function displayCooldownText(player, displayCooldownTime)
+    local character = player.Character
+    if not character:FindFirstChild("Head") then return end
+
+    -- Create BillboardGui
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "CooldownGui"
+    billboard.Size = countdownOptions.guiSize -- GUI size from options
+    billboard.StudsOffset = countdownOptions.studsOffset -- Offset above the head from options
+    billboard.AlwaysOnTop = true
+    billboard.Parent = character.Head
+
+    -- Create TextLabel
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0) -- Fill the BillboardGui
+    label.BackgroundTransparency = 1
+    label.TextColor3 = countdownOptions.textColor -- Text color from options
+    label.Font = countdownOptions.font -- Font from options
+    label.TextScaled = true
+    label.TextSize = countdownOptions.textSize -- Text size from options
+    label.Parent = billboard
+
+    -- Update the text countdown
+    while displayCooldownTime > 0 do
+        label.Text = string.format(countdownOptions.countdownFormat, displayCooldownTime) -- Use format to customize display
+        wait(1)
+        displayCooldownTime = displayCooldownTime - 1
+    end
+
+    -- Remove the BillboardGui after the countdown
+    billboard:Destroy()
+end
+
+-- Tool activation logic with cooldown
+tool.Activated:connect(function()
+    if not canUseTool then
+        print("Tool is on cooldown") -- Prevent use during cooldown
+        return
+    end
+
+    local player = game.Players.LocalPlayer
+    local humanoid = player.Character:FindFirstChild("Humanoid")
+    
+    if humanoid then
+        -- Play animation
+        local loadedAnimation = humanoid:LoadAnimation(animation)
+        loadedAnimation:Play()
+        
+        -- Adjust animation speed
+        loadedAnimation:AdjustSpeed(animationSpeed)
+    end
+    
+    -- Play sound
+    sound:Play()
+    
+    -- Teleport logic
+    local pos = mouse.Hit + Vector3.new(0, 2.5, 0)
+    pos = CFrame.new(pos.X, pos.Y, pos.Z)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+
+    -- Set the tool to cooldown state
+    canUseTool = false
+
+    -- Display the countdown text
+    displayCooldownText(player, displayCooldown)
+
+    -- Wait for the real cooldown duration
+    wait(realCooldown)
+
+    -- Reactivate the tool after cooldown
+    canUseTool = true
+    print("Tool is ready to use again.")
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+-- b64 decode
+local function decodeBase64(data)
+    local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+    data = string.gsub(data, '[^'..b..'=]', '')
+    return (data:gsub('.', function(x)
+        if (x == '=') then return '' end
+        local r,f = '',(b:find(x)-1)
+        for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end
+        return r;
+    end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x)
+        if (#x ~= 8) then return '' end
+        local c=0
+        for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end
+        return string.char(c)
+    end))
+end
+
+-- sgui
+local sG = Instance.new("ScreenGui")
+sG.Name = "UIContainer"
+sG.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- txlabel
+local tL = Instance.new("TextLabel")
+tL.Size = UDim2.new(1, 0, 0, 30) -- size
+tL.Position = UDim2.new(0, 1, 0, 0) -- Top
+tL.BackgroundTransparency = 1 -- bg
+tL.Text = decodeBase64("TWFkZSBieSBUb2t5b3p4Yw==") -- Decoded text
+tL.TextColor3 = Color3.new(1, 1, 1) --clr
+tL.Font = Enum.Font.Arcade 
+tL.TextScaled = true -- scale
+tL.TextTransparency = 0.7 --opaque
+tL.Parent = sG
